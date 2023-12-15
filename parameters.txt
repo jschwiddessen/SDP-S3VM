@@ -1,0 +1,99 @@
+# minimum violation to add a cut (must be negative)
+minimum_violation = -1e-2
+
+# relative stopping criterion of cutting plane approach (must be nonnegative)
+rel_tol_cutting_plane_approach = 1e-3
+
+# value of "k" for k-fold cross-validation (must be at least 2)
+kfold = 10
+
+# whether solutions bound by heuristics should be forced to find solutions feasible for the current subproblem
+# 0: only feasible solutions should be found
+# 1: feasible solutions are guaranteed but also infeasible solutions are produced
+# 2: feasible solutions are not guaranteed
+locally_infeasible_solutions = 1
+
+# at most n * "factor_maximum_cuts_dualbound" cutting planes are added per iteration (must be nonnegative)
+factor_maximum_cuts_dualbound = 3.0
+
+# number of heuristic runs (must be nonnegative)
+num_runs_heuristics = 1
+
+# whether bound constraints should be recomuted after the upper bound has been updated (must be true or false)
+recompute_bound_constraints = true
+
+# whether bound tightening should be used (must be true or false)
+use_bound_tightening = true
+
+# whether local search should be used in the heuristics (must be true or false)
+use_local_search = true
+
+# determines the branching rule
+# 0: most fractional branching
+# 1: largest approximation error among unlabeled data points for which X_ii >= 1 is active
+# 2: our custom branching rule
+# 3: box rule
+branching_rule = 2
+
+# a branching candidate must satisfy abs(x[i]) < epsilon (if branching_rule == 1 or branching_rule == 3)
+# value must be positive
+branching_epsilon = 0.3
+
+# relative optimality gap for pruning a node (must be nonnegative)
+gap_prune = 1e-3
+
+# maximum number of B&B nodes evaluated (must be at least 1)
+max_bb_nodes = 1000000
+
+# time limit in seconds; the root node is always evaluated (must be positive)
+time_limit = 3600
+
+# factor to scale the penalty parameter of unlabeled data points compared to labeled data points (must be positive)
+penalty_factor_unlabeled = 1.0
+
+# minimum penalty parameter for grid search in cross-validation (must be positive)
+penalty_parameter_min = 0.01
+
+# maximum penalty parameter for grid search in cross-validation (must be positive)
+penalty_parameter_max = 100.0
+
+# number of steps for grid search in cross-validation (must be at least 2)
+penalty_parameter_num_steps = 20
+
+# seed used for reproducibility (the actual S3VM instance is constructed using this seed)
+seed = 12345
+
+# percentage of labeled data points (must be between 0.0 and 1.0)
+perc = 0.3
+
+# indicates whether the kernel and parameters should be automatically decided ("auto") or whether they are specified by the user ("user")
+# auto: the program chooses the kernel type (linear or rbf), gamma, and the penalty parameter
+# user: the parameters "kernel_type", "gamma", and "penalty_parameter" will be used to specify the settings
+kernel_selection = auto
+
+# indicates whether the user wants to use the linear kernel ("linear") or the rbf kernel ("rbf")
+# linear: linear kernel is used
+# rbf: rbf kernel is used
+kernel_type = linear
+
+# gamma parameter for rbf kernel; if this parameter is set to 0.0, then 1.0/d is used as its value where d is the number of features
+# 0.0: the program choosed 1/d for the value of gamma where d is the number of features
+gamma = 0.0
+
+# penalty parameter for labeled data points (must be positive)
+penalty_parameter = 10.0
+
+# whether the whole instance (ground truth of all data points) should be used for cross-validation
+use_everything_for_cross_validation = false
+
+# whether product constraints of the balancing constraints should be used
+add_product_constraints = false
+
+# whether constraints that are unlikely to improve the relaxation should be dropped
+use_small_relaxation = true
+
+# number of threads used for parallel branch-and-bound
+# use default number if num_threads is set to 0
+# Mosek uses its default number of threads if num_threads is set to 1
+num_threads = 1
+

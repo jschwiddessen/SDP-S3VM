@@ -1,0 +1,12 @@
+#./standardized_instances/art100.txt
+./standardized_instances/art150.txt
+#./standardized_instances/2moons.txt
+#./standardized_instances/heart.txt
+#./standardized_instances/connectionist.txt
+#./standardized_instances/ionosphere.txt
+#./standardized_instances/arrhythmia.txt
+#./standardized_instances/PowerCons.txt
+#./standardized_instances/GunPoint.txt
+#./standardized_instances/musk.txt
+#./standardized_instances/wdbc.txt
+
