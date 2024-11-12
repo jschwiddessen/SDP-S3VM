@@ -19,6 +19,7 @@ Base.@kwdef struct MyParameters
 	gap_prune::Float64
 	recompute_bound_constraints::Bool
 	rel_tol_cutting_plane_approach::Float64
+	max_cutting_plane_iter::Int64
 	max_bb_nodes::Int64
 	branching_rule::Int64
 	time_limit::Float64
@@ -53,6 +54,7 @@ function get_parameters(filename::String)
 	gap_prune::Float64 = 1e-3
 	recompute_bound_constraints::Bool = true
 	rel_tol_cutting_plane_approach::Float64 = 1e-3
+	max_cutting_plane_iter::Int64 = 25
 	max_bb_nodes::Int64 = 1e10
 	branching_rule::Int64 = 2
 	time_limit::Float64 = 1e10
@@ -98,6 +100,8 @@ function get_parameters(filename::String)
                 recompute_bound_constraints = parse(Bool, value)
 			elseif key == "rel_tol_cutting_plane_approach"
                 rel_tol_cutting_plane_approach = parse(Float64, value)
+            elseif key == "max_cutting_plane_iter"
+                max_cutting_plane_iter = parse(Int64, value)
 			elseif key == "max_bb_nodes"
                 max_bb_nodes = parse(Int64, value)
 			elseif key == "branching_rule"
@@ -164,6 +168,9 @@ function get_parameters(filename::String)
 	if rel_tol_cutting_plane_approach < 0.0
 		error("\"rel_tol_cutting_plane_approach\" must be nonnegative\n")
 	end
+	if max_cutting_plane_iter < 1
+		error("\"max_cutting_plane_iter\" must be greater equal than 1\n")
+	end
 	if max_bb_nodes <= 0
 		error("\"max_bb_nodes\" must be greater equal than 1\n")
 	end
@@ -227,6 +234,7 @@ function get_parameters(filename::String)
 		gap_prune = gap_prune,
 		recompute_bound_constraints = recompute_bound_constraints,
 		rel_tol_cutting_plane_approach = rel_tol_cutting_plane_approach,
+		max_cutting_plane_iter = max_cutting_plane_iter,
 		max_bb_nodes = max_bb_nodes,
 		branching_rule = branching_rule,
 		time_limit = time_limit,
@@ -3293,7 +3301,7 @@ function sdp_cut_and_tighten(
 		gap = compute_gap(lower_bound, instance.upper_bound[])
 
 		# decide whether we should stop
-		if lower_bound_improvement / old_lower_bound < parameters.rel_tol_cutting_plane_approach || gap < parameters.gap_prune
+		if lower_bound_improvement / old_lower_bound < parameters.rel_tol_cutting_plane_approach || gap < parameters.gap_prune || iter >= parameters.max_cutting_plane_iter
 		
 			volume_end = sum(U - L)
 			volume_diff = volume_start - volume_end

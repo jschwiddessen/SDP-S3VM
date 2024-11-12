@@ -4,6 +4,9 @@ minimum_violation = -1e-2
 # relative stopping criterion of cutting plane approach (must be nonnegative)
 rel_tol_cutting_plane_approach = 1e-3
 
+# maximum number of cutting-plane iterations (must be at least 1)
+max_cutting_plane_iter = 30
+
 # value of "k" for k-fold cross-validation (must be at least 2)
 kfold = 10
 
